@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Savings Calculator</title>
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background: linear-gradient(135deg, #4CAF50, #2E8B57);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+    }
+
+    .container {
+        background: white;
+        padding: 25px;
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        width: 350px;
+        text-align: center;
+    }
+
+    h2 {
+        color: #2E8B57;
+    }
+
+    input {
+        width: 90%;
+        padding: 10px;
+        margin: 8px 0;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+
+    button {
+        background: #2E8B57;
+        color: white;
+        border: none;
+        padding: 10px 15px;
+        margin-top: 10px;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    button:hover {
+        background: #256d46;
+    }
+
+    #result {
+        margin-top: 15px;
+        font-size: 18px;
+        font-weight: bold;
+        color: #333;
+    }
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <h2>Savings Calculator</h2>
+
+    <input type="number" id="monthlySavings" placeholder="Monthly Savings (PKR)">
+
+    <input type="number" id="interestRate" placeholder="Annual Interest Rate (%)">
+
+    <input type="number" id="years" placeholder="Saving Period (Years)">
+
+    <button onclick="calculateSavings()">Calculate</button>
+
+    <div id="result"></div>
+</div>
+
+<script>
+function calculateSavings() {
+    let monthly = parseFloat(document.getElementById("monthlySavings").value);
+    let rate = parseFloat(document.getElementById("interestRate").value);
+    let years = parseFloat(document.getElementById("years").value);
+
+    if (isNaN(monthly) || isNaN(rate) || isNaN(years)) {
+        document.getElementById("result").innerHTML =
+            "Please enter all values.";
+        return;
+    }
+
+    let monthlyRate = rate / 100 / 12;
+    let months = years * 12;
+
+    let futureValue =
+        monthly *
+        ((Math.pow(1 + monthlyRate, months) - 1) / monthlyRate);
+
+    document.getElementById("result").innerHTML =
+        "Future Savings Amount: PKR " +
+        futureValue.toFixed(2);
+}
+</script>
+
+</body>
+</html>
